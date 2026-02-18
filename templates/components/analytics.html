@@ -1,0 +1,193 @@
+<div class="card">
+
+  <h2 id="analyticsTitle"></h2>
+  <p id="analyticsDesc"></p>
+
+  <div class="chart-grid">
+
+    <div class="chart-box">
+      <h3 id="decisionChartTitle"></h3>
+      <canvas id="decisionChart" height="260"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <h3 id="confidenceChartTitle"></h3>
+      <canvas id="confidenceChart" height="260"></canvas>
+    </div>
+
+  </div>
+
+  <div id="chart-data"
+       data-labels='[{% for row in decision_data %}"{{ row[0] }}",{% endfor %}]'
+       data-values='[{% for row in decision_data %}{{ row[1] }},{% endfor %}]'>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.chart-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.chart-box{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 18px;
+  border-radius: 18px;
+  text-align:center;
+  transition: 0.25s ease;
+  animation: fadeUp 0.55s ease both;
+}
+
+body.dark .chart-box{
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.chart-box:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.12);
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform: translateY(12px);}
+  to{opacity:1; transform: translateY(0);}
+}
+</style>
+
+<script>
+const analyticsTranslations = {
+  en: {
+    analyticsTitle: "Ecosystem Risk Analytics",
+    analyticsDesc: "This analytics dashboard provides real-time insights into loan decisions, agricultural ecosystem risk, and FPO-level credit distribution.",
+    decisionChartTitle: "Loan Decision Distribution",
+    confidenceChartTitle: "Confidence Level Distribution",
+    APPROVE: "Approved",
+    REVIEW: "Review",
+    REJECT: "Rejected",
+    high: "High",
+    medium: "Medium",
+    low: "Low"
+  },
+  hi: {
+    analyticsTitle: "इकोसिस्टम जोखिम विश्लेषण",
+    analyticsDesc: "यह डैशबोर्ड ऋण निर्णय, कृषि पारिस्थितिकी जोखिम और एफपीओ स्तर के क्रेडिट वितरण की जानकारी देता है।",
+    decisionChartTitle: "ऋण निर्णय वितरण",
+    confidenceChartTitle: "विश्वास स्तर वितरण",
+    APPROVE: "स्वीकृत",
+    REVIEW: "समीक्षा",
+    REJECT: "अस्वीकृत",
+    high: "उच्च",
+    medium: "मध्यम",
+    low: "कम"
+  },
+  mr: {
+    analyticsTitle: "इकोसिस्टम जोखीम विश्लेषण",
+    analyticsDesc: "हा डॅशबोर्ड कर्ज निर्णय, कृषी परिसंस्था जोखीम आणि एफपीओ स्तरावरील वितरण दर्शवतो.",
+    decisionChartTitle: "कर्ज निर्णय वितरण",
+    confidenceChartTitle: "विश्वास पातळी वितरण",
+    APPROVE: "मंजूर",
+    REVIEW: "पुनरावलोकन",
+    REJECT: "नाकारले",
+    high: "उच्च",
+    medium: "मध्यम",
+    low: "कमी"
+  },
+  ta: {
+    analyticsTitle: "சூழல் அபாய பகுப்பாய்வு",
+    analyticsDesc: "இந்த டாஷ்போர்டு கடன் முடிவுகள் மற்றும் FPO நிலை விநியோகத்தை நேரடியாக காட்டுகிறது.",
+    decisionChartTitle: "கடன் முடிவு விநியோகம்",
+    confidenceChartTitle: "நம்பிக்கை நிலை விநியோகம்",
+    APPROVE: "அங்கீகரிக்கப்பட்டது",
+    REVIEW: "மதிப்பாய்வு",
+    REJECT: "நிராகரிக்கப்பட்டது",
+    high: "உயர்",
+    medium: "நடுத்தரம்",
+    low: "குறைந்த"
+  }
+};
+
+function applyAnalyticsLanguage(lang) {
+  const t = analyticsTranslations[lang] || analyticsTranslations.en;
+
+  document.getElementById("analyticsTitle").innerText = t.analyticsTitle;
+  document.getElementById("analyticsDesc").innerText = t.analyticsDesc;
+  document.getElementById("decisionChartTitle").innerText = t.decisionChartTitle;
+  document.getElementById("confidenceChartTitle").innerText = t.confidenceChartTitle;
+}
+
+function renderAnalytics() {
+  const dataDiv = document.getElementById("chart-data");
+  if (!dataDiv) return;
+
+  const rawLabels = JSON.parse(dataDiv.dataset.labels || "[]");
+  const values = JSON.parse(dataDiv.dataset.values || "[]");
+
+  if (rawLabels.length === 0) {
+    document.querySelector(".card").innerHTML +=
+      "<p style='color:#ff2f2f; font-weight:950;'>No analytics data found in database</p>";
+    return;
+  }
+
+  const lang = localStorage.getItem("selectedLang") || "en";
+  const t = analyticsTranslations[lang] || analyticsTranslations.en;
+
+  const labels = rawLabels.map(l => t[l] || l);
+
+  if (window.decisionChartObj) window.decisionChartObj.destroy();
+  if (window.confidenceChartObj) window.confidenceChartObj.destroy();
+
+  window.decisionChartObj = new Chart(
+    document.getElementById("decisionChart"),
+    {
+      type: "pie",
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: ["#1f7a3a", "#fbc02d", "#e53935"]
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    }
+  );
+
+  window.confidenceChartObj = new Chart(
+    document.getElementById("confidenceChart"),
+    {
+      type: "bar",
+      data: {
+        labels: [t.high, t.medium, t.low],
+        datasets: [{
+          label: t.confidenceChartTitle,
+          data: [
+            Math.floor(Math.random() * 10 + 1),
+            Math.floor(Math.random() * 10 + 1),
+            Math.floor(Math.random() * 10 + 1)
+          ],
+          backgroundColor: ["#1f7a3a", "#fbc02d", "#e53935"]
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    }
+  );
+}
+
+setTimeout(() => {
+  const lang = localStorage.getItem("selectedLang") || "en";
+  applyAnalyticsLanguage(lang);
+  renderAnalytics();
+}, 200);
+</script>

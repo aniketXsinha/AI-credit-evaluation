@@ -1,0 +1,795 @@
+<div class="card">
+
+  <h2 id="formTitle"></h2>
+  <p id="formIntro"></p>
+
+  <!-- ===================== FORM WRAPPER ===================== -->
+  <div class="form-layout">
+
+    <!-- LEFT MAIN FORM -->
+    <div class="form-main">
+
+      <!-- ===================== FINANCIAL DETAILS ===================== -->
+      <div class="section-card">
+        <h3 id="financeTitle"></h3>
+
+        <div class="form-grid">
+
+          <div class="form-group full">
+            <label id="lblBusiness"></label>
+            <select id="business_type" onchange="toggleAgriFields(); updateBusinessInfo();">
+              <option>Retail</option>
+              <option>Manufacturing</option>
+              <option>Services</option>
+              <option>Trading</option>
+              <option>Agricultural Enterprise</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label id="lblYears"></label>
+            <input type="number" id="years_in_operation" placeholder="e.g. 5">
+          </div>
+
+          <div class="form-group">
+            <label id="lblRevenue"></label>
+            <input type="number" id="annual_revenue" placeholder="e.g. 800000">
+          </div>
+
+          <div class="form-group">
+            <label id="lblCashflow"></label>
+            <input type="number" id="monthly_cashflow" placeholder="e.g. 50000">
+          </div>
+
+          <div class="form-group">
+            <label id="lblLoan"></label>
+            <input type="number" id="loan_amount_requested" placeholder="e.g. 200000">
+          </div>
+
+          <div class="form-group">
+            <label id="lblScore"></label>
+            <input type="number" id="credit_score" placeholder="e.g. 720">
+          </div>
+
+          <div class="form-group">
+            <label id="lblLoans"></label>
+            <input type="number" id="existing_loans" placeholder="e.g. 1">
+          </div>
+
+          <div class="form-group">
+            <label id="lblDTI"></label>
+            <input type="number" step="0.01" id="debt_to_income_ratio" placeholder="e.g. 0.35">
+          </div>
+
+          <!-- ===================== COLLATERAL ===================== -->
+          <div class="form-group" id="collateralSection">
+            <label id="lblCollateral"></label>
+            <input type="number" id="collateral_value" placeholder="e.g. 150000">
+          </div>
+
+          <div class="form-group full">
+            <label id="lblRepayment"></label>
+            <select id="repayment_history">
+              <option>Good</option>
+              <option>Average</option>
+              <option>Poor</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===================== FARMER PROFILE ===================== -->
+      <div class="section-card" id="farmerSection" style="display:none;">
+        <h3 id="farmerTitle"></h3>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label id="lblName"></label>
+            <input id="farmer_name" placeholder="Enter Farmer / FPO Name">
+          </div>
+
+          <div class="form-group">
+            <label id="lblVillage"></label>
+            <input id="village" placeholder="Village name">
+          </div>
+
+          <div class="form-group">
+            <label id="lblDistrict"></label>
+            <input id="district" placeholder="District name">
+          </div>
+
+          <div class="form-group">
+            <label id="lblState"></label>
+            <input id="state" placeholder="State name">
+          </div>
+
+          <div class="form-group">
+            <label id="lblLand"></label>
+            <input type="number" id="land_size" placeholder="e.g. 2.5">
+          </div>
+
+          <div class="form-group">
+            <label id="lblCrop"></label>
+            <select id="crop_type">
+              <option>Wheat</option>
+              <option>Rice</option>
+              <option>Cotton</option>
+              <option>Maize</option>
+              <option>Sugarcane</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label id="lblSeason"></label>
+            <select id="season">
+              <option>Kharif</option>
+              <option>Rabi</option>
+              <option>Zaid</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label id="lblIrrigation"></label>
+            <select id="irrigation">
+              <option>Canal</option>
+              <option>Borewell</option>
+              <option>Rainfed</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- ===================== ESG IMPACT ===================== -->
+        <div class="sub-section">
+          <h3 id="esgTitle"></h3>
+
+          <div class="checkbox-grid">
+            <label class="check-card">
+              <input type="checkbox" id="womenLed">
+              <span id="lblWomen"></span>
+            </label>
+
+            <label class="check-card">
+              <input type="checkbox" id="organicFarm">
+              <span id="lblOrganic"></span>
+            </label>
+
+            <label class="check-card">
+              <input type="checkbox" id="smallFarmer">
+              <span id="lblSmall"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===================== CARD BENEFITS ===================== -->
+      <div class="section-card" id="cardBenefits" style="display:none;">
+        <h3 id="cardTitle"></h3>
+
+        <div class="checkbox-grid">
+          <label class="check-card">
+            <input type="checkbox" id="kisanCard" onchange="syncAgriCards()">
+            <span id="lblKisan"></span>
+          </label>
+
+          <label class="check-card">
+            <input type="checkbox" id="rupayCard" onchange="syncAgriCards()">
+            <span id="lblRupay"></span>
+          </label>
+
+          <label class="check-card">
+            <input type="checkbox" id="soilCard" onchange="syncAgriCards()">
+            <span id="lblSoil"></span>
+          </label>
+
+          <label class="check-card">
+            <input type="checkbox" id="insuranceCard" onchange="syncAgriCards()">
+            <span id="lblInsurance"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===================== AGREEMENT ===================== -->
+      <div class="section-card">
+        <h3>Agreement</h3>
+
+        <label class="agreement">
+          <input type="checkbox" id="agreeCheck">
+          <span>
+            I confirm that the above information is correct and I allow this platform to evaluate loan risk & ESG impact.
+          </span>
+        </label>
+      </div>
+
+      <!-- ===================== BUTTON ===================== -->
+      <button onclick="predictRisk()" id="btnPredict"></button>
+
+      <!-- RESULT -->
+      <div id="result"></div>
+
+    </div>
+
+    <!-- RIGHT INFO PANEL -->
+    <div class="form-side">
+      <div class="side-card">
+        <h3>Business Insights</h3>
+        <p id="businessInfo">
+          Select a business type to see intelligent tips and required information.
+        </p>
+
+        <div class="mini-tags">
+          <span class="tag">AI Risk</span>
+          <span class="tag">ESG Impact</span>
+          <span class="tag">Credit Limit</span>
+        </div>
+      </div>
+
+      <div class="side-card glow">
+        <h3>Smart Guidance</h3>
+        <ul class="side-list">
+          <li>Higher credit score → better approval</li>
+          <li>Low DTI ratio → higher confidence</li>
+          <li>Women-led + Organic → ESG boost</li>
+          <li>Support cards → smarter decision</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===================== STYLES (ONLY FORM PAGE) ===================== -->
+<style>
+.form-layout{
+  display:grid;
+  grid-template-columns: 1fr 340px;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.section-card{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 18px;
+  border-radius: 18px;
+  margin-top: 16px;
+  transition: 0.25s ease;
+  animation: fadeUp 0.55s ease both;
+}
+
+body.dark .section-card{
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.section-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.10);
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform: translateY(12px);}
+  to{opacity:1; transform: translateY(0);}
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.form-group.full{
+  grid-column: 1 / -1;
+}
+
+label{
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+input, select{
+  width:100%;
+  padding: 13px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.72);
+  font-size: 14px;
+  font-weight: 800;
+  transition: 0.25s ease;
+}
+
+body.dark input, body.dark select{
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: var(--text);
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(46,229,157,0.20);
+  transform: translateY(-1px);
+}
+
+.checkbox-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.check-card{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  cursor:pointer;
+  background: rgba(46,229,157,0.10);
+  border: 1px solid rgba(46,229,157,0.16);
+  transition: 0.25s ease;
+  font-weight: 850;
+}
+
+.check-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.12);
+}
+
+.check-card input{
+  width:18px;
+  height:18px;
+  accent-color: var(--green1);
+}
+
+.sub-section{
+  margin-top: 10px;
+}
+
+.agreement{
+  display:flex;
+  align-items:flex-start;
+  gap: 10px;
+  font-weight: 850;
+  color: var(--muted);
+  line-height: 1.35;
+  cursor:pointer;
+}
+
+.agreement input{
+  margin-top: 3px;
+  width:18px;
+  height:18px;
+  accent-color: var(--green1);
+}
+
+button{
+  margin-top: 18px;
+  width:100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border:none;
+  cursor:pointer;
+  font-weight:1000;
+  font-size: 15px;
+  color:#fff;
+  background: linear-gradient(90deg, var(--green1), var(--green2), var(--accent));
+  box-shadow: 0 18px 45px rgba(31,122,58,0.25);
+  transition: 0.25s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+button::after{
+  content:"";
+  position:absolute;
+  top:-70%;
+  left:-45%;
+  width:55%;
+  height:220%;
+  background: rgba(255,255,255,0.25);
+  transform: rotate(18deg);
+  transition:0.55s ease;
+}
+
+button:hover::after{ left:130%; }
+
+button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 22px 60px rgba(31,122,58,0.35);
+}
+
+#result{
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(46,229,157,0.20);
+  background: rgba(46,229,157,0.08);
+  font-weight: 850;
+  animation: fadePop 0.45s ease both;
+}
+
+@keyframes fadePop{
+  from{opacity:0; transform: translateY(10px);}
+  to{opacity:1; transform: translateY(0);}
+}
+
+/* Side panel */
+.form-side{
+  position: sticky;
+  top: 18px;
+  height: fit-content;
+}
+
+.side-card{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 16px;
+  transition: 0.25s ease;
+}
+
+body.dark .side-card{
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.side-card.glow{
+  border: 1px solid rgba(46,229,157,0.25);
+  box-shadow: 0 20px 70px rgba(46,229,157,0.10);
+}
+
+.side-card h3{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 1000;
+}
+
+.side-card p{
+  margin-top: 10px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.side-list{
+  margin-top: 12px;
+  padding-left: 18px;
+  color: var(--muted);
+  font-weight: 850;
+  line-height: 1.6;
+}
+
+.mini-tags{
+  display:flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.tag{
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(46,229,157,0.14);
+  border: 1px solid rgba(46,229,157,0.22);
+  font-weight: 950;
+  font-size: 12px;
+}
+
+@media(max-width: 1050px){
+  .form-layout{
+    grid-template-columns: 1fr;
+  }
+  .form-side{
+    position: relative;
+    top: 0;
+  }
+}
+
+@media(max-width: 700px){
+  .form-grid{
+    grid-template-columns: 1fr;
+  }
+  .checkbox-grid{
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<!-- ===================== LOGIC ===================== -->
+<script>
+function toggleAgriFields() {
+  const business = document.getElementById("business_type").value;
+  const farmerSection = document.getElementById("farmerSection");
+  const collateralSection = document.getElementById("collateralSection");
+  const cardBenefits = document.getElementById("cardBenefits");
+
+  if (business === "Agricultural Enterprise") {
+    farmerSection.style.display = "block";
+    collateralSection.style.display = "none";
+    cardBenefits.style.display = "block";
+  } else {
+    farmerSection.style.display = "none";
+    collateralSection.style.display = "block";
+    cardBenefits.style.display = "none";
+  }
+}
+
+function updateBusinessInfo(){
+  const b = document.getElementById("business_type").value;
+  const box = document.getElementById("businessInfo");
+
+  const map = {
+    "Retail": "Retail businesses are evaluated using revenue stability, repayment history, and credit score trends.",
+    "Manufacturing": "Manufacturing evaluation considers cashflow, collateral value, and existing loan burden.",
+    "Services": "Service businesses focus on monthly cashflow consistency and debt-to-income ratio.",
+    "Trading": "Trading risk depends on turnover, requested loan vs revenue ratio, and repayment performance.",
+    "Agricultural Enterprise": "Agricultural enterprises include farmer profile + ESG scoring + support cards for better credit confidence."
+  };
+
+  box.innerText = map[b] || "Select a business type to see intelligent tips.";
+}
+
+setTimeout(() => {
+  toggleAgriFields();
+  updateBusinessInfo();
+}, 150);
+</script>
+
+<!-- ===================== PREDICT ENGINE ===================== -->
+<script>
+function predictRisk() {
+
+  const agree = document.getElementById("agreeCheck").checked;
+  if(!agree){
+    document.getElementById("result").innerHTML =
+      "<p style='color:#ff2f2f; font-weight:950;'>⚠️ Please accept the agreement before prediction.</p>";
+    return;
+  }
+
+  syncAgriCards();
+
+  const payload = {
+    business_type: document.getElementById("business_type").value,
+    credit_score: document.getElementById("credit_score").value,
+    debt_to_income_ratio: document.getElementById("debt_to_income_ratio").value,
+    loan_amount_requested: document.getElementById("loan_amount_requested").value,
+    annual_revenue: document.getElementById("annual_revenue").value,
+
+    // AGRO CARDS
+    kisanCard: window.agriData.kisanCard,
+    rupayCard: window.agriData.rupayCard,
+    soilCard: window.agriData.soilCard,
+    insuranceCard: window.agriData.insuranceCard,
+
+    // ESG DATA
+    womenLed: document.getElementById("womenLed")?.checked || false,
+    organicFarm: document.getElementById("organicFarm")?.checked || false,
+    smallFarmer: document.getElementById("smallFarmer")?.checked || false
+  };
+
+  document.getElementById("result").innerHTML =
+    "<p style='font-weight:950;'>⏳ Processing AI Risk & ESG Score...</p>";
+
+  fetch("/predict", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-KEY": "secure-credit-api-123"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerHTML = `
+      <h3 style="margin:0 0 10px 0;">Result</h3>
+      <p><b>Risk Score:</b> ${data.risk_score}%</p>
+      <p><b>Decision:</b> ${data.decision}</p>
+      <p><b>Confidence:</b> ${data.confidence}</p>
+      <p><b>🌍 ESG Impact Score:</b> ${data.impact_score}</p>
+      <p><b>💳 Recommended Credit Limit:</b> ₹${data.recommended_limit}</p>
+    `;
+  })
+  .catch(() => {
+    document.getElementById("result").innerHTML =
+      "<p style='color:#ff2f2f; font-weight:950;'>Server error. Try again.</p>";
+  });
+}
+</script>
+
+<!-- ===================== MULTI-LANGUAGE ===================== -->
+<script>
+/* 👇 Your SAME translations (no content change) */
+const formTranslations = {
+  en:{
+    formTitle:"Loan Application Form",
+    formIntro:"Intelligent loan risk evaluation with special focus on agricultural enterprises.",
+    farmerTitle:"Farmer / FPO Profile",
+    financeTitle:"Financial & Loan Details",
+
+    lblName:"Farmer / FPO Name",
+    lblVillage:"Village",
+    lblDistrict:"District",
+    lblState:"State",
+    lblLand:"Land Size (Acres)",
+    lblCrop:"Crop Type",
+    lblSeason:"Season",
+    lblIrrigation:"Irrigation Type",
+
+    lblBusiness:"Business Type",
+    lblYears:"Years in Operation",
+    lblRevenue:"Annual Revenue",
+    lblCashflow:"Monthly Cashflow",
+    lblLoan:"Loan Amount Requested",
+    lblScore:"Credit Score",
+    lblLoans:"Existing Loans",
+    lblDTI:"Debt to Income Ratio",
+    lblCollateral:"Collateral Value",
+    lblRepayment:"Repayment History",
+
+    btnPredict:"Predict Risk",
+
+    cardTitle:"Farmer Benefits & Support Cards (Optional)",
+    lblKisan:"Kisan Credit Card",
+    lblRupay:"Rupay Kisan Card",
+    lblSoil:"Soil Health Card",
+    lblInsurance:"Crop Insurance Card",
+
+    esgTitle:"ESG & Social Impact (Optional)",
+    lblWomen:"Women-led FPO / Enterprise",
+    lblOrganic:"Organic Farming",
+    lblSmall:"Small Farmer Category"
+  },
+
+  hi:{
+    formTitle:"ऋण आवेदन फॉर्म",
+    formIntro:"कृषि उद्यमों पर विशेष ध्यान के साथ बुद्धिमान ऋण जोखिम मूल्यांकन।",
+    farmerTitle:"किसान / एफपीओ प्रोफ़ाइल",
+    financeTitle:"वित्तीय और ऋण विवरण",
+
+    lblName:"किसान / एफपीओ नाम",
+    lblVillage:"गांव",
+    lblDistrict:"जिला",
+    lblState:"राज्य",
+    lblLand:"भूमि आकार (एकड़)",
+    lblCrop:"फसल प्रकार",
+    lblSeason:"मौसम",
+    lblIrrigation:"सिंचाई प्रकार",
+
+    lblBusiness:"व्यवसाय प्रकार",
+    lblYears:"संचालन के वर्ष",
+    lblRevenue:"वार्षिक राजस्व",
+    lblCashflow:"मासिक नकद प्रवाह",
+    lblLoan:"ऋण राशि",
+    lblScore:"क्रेडिट स्कोर",
+    lblLoans:"मौजूदा ऋण",
+    lblDTI:"ऋण-आय अनुपात",
+    lblCollateral:"गिरवी मूल्य",
+    lblRepayment:"भुगतान इतिहास",
+
+    btnPredict:"जोखिम जांचें",
+
+    cardTitle:"किसान लाभ और सहायता कार्ड (वैकल्पिक)",
+    lblKisan:"किसान क्रेडिट कार्ड",
+    lblRupay:"रुपे किसान कार्ड",
+    lblSoil:"मृदा स्वास्थ्य कार्ड",
+    lblInsurance:"फसल बीमा कार्ड",
+
+    esgTitle:"ईएसजी और सामाजिक प्रभाव (वैकल्पिक)",
+    lblWomen:"महिला संचालित एफपीओ / उद्यम",
+    lblOrganic:"जैविक खेती",
+    lblSmall:"लघु किसान श्रेणी"
+  },
+
+  mr:{
+    formTitle:"कर्ज अर्ज फॉर्म",
+    formIntro:"कृषी उद्योगांवर विशेष लक्ष देणारे बुद्धिमान कर्ज जोखीम मूल्यांकन.",
+    farmerTitle:"शेतकरी / एफपीओ प्रोफाइल",
+    financeTitle:"आर्थिक आणि कर्ज तपशील",
+
+    lblName:"शेतकरी / एफपीओ नाव",
+    lblVillage:"गाव",
+    lblDistrict:"जिल्हा",
+    lblState:"राज्य",
+    lblLand:"जमीन आकार (एकर)",
+    lblCrop:"पीक प्रकार",
+    lblSeason:"हंगाम",
+    lblIrrigation:"सिंचन प्रकार",
+
+    lblBusiness:"व्यवसाय प्रकार",
+    lblYears:"कारभाराची वर्षे",
+    lblRevenue:"वार्षिक उत्पन्न",
+    lblCashflow:"मासिक रोख प्रवाह",
+    lblLoan:"कर्ज रक्कम",
+    lblScore:"क्रेडिट स्कोर",
+    lblLoans:"सध्याची कर्जे",
+    lblDTI:"कर्ज-उत्पन्न गुणोत्तर",
+    lblCollateral:"तारण मूल्य",
+    lblRepayment:"परतफेड इतिहास",
+
+    btnPredict:"जोखीम तपासा",
+
+    cardTitle:"शेतकरी लाभ व सहाय्य कार्ड (ऐच्छिक)",
+    lblKisan:"किसान क्रेडिट कार्ड",
+    lblRupay:"रुपे किसान कार्ड",
+    lblSoil:"मृदा आरोग्य कार्ड",
+    lblInsurance:"पीक विमा कार्ड",
+
+    esgTitle:"ईएसजी आणि सामाजिक प्रभाव (ऐच्छिक)",
+    lblWomen:"महिला चालवलेले एफपीओ / व्यवसाय",
+    lblOrganic:"सेंद्रिय शेती",
+    lblSmall:"लघु शेतकरी श्रेणी"
+  },
+
+  ta:{
+    formTitle:"கடன் விண்ணப்பப் படிவம்",
+    formIntro:"விவசாய நிறுவனங்களுக்கு சிறப்பு கவனம் கொண்ட அறிவார்ந்த கடன் அபாய மதிப்பீடு.",
+    farmerTitle:"விவசாயி / FPO சுயவிவரம்",
+    financeTitle:"நிதி மற்றும் கடன் விவரங்கள்",
+
+    lblName:"விவசாயி / FPO பெயர்",
+    lblVillage:"கிராமம்",
+    lblDistrict:"மாவட்டம்",
+    lblState:"மாநிலம்",
+    lblLand:"நில அளவு (ஏக்கர்)",
+    lblCrop:"பயிர் வகை",
+    lblSeason:"பருவம்",
+    lblIrrigation:"பாசன வகை",
+
+    lblBusiness:"வணிக வகை",
+    lblYears:"செயல்பாட்டு ஆண்டுகள்",
+    lblRevenue:"ஆண்டு வருமானம்",
+    lblCashflow:"மாத வருமானம்",
+    lblLoan:"கடன் தொகை",
+    lblScore:"கடன் மதிப்பெண்",
+    lblLoans:"நடப்பு கடன்கள்",
+    lblDTI:"கடன்-வருமான விகிதம்",
+    lblCollateral:"உத்தரவாத மதிப்பு",
+    lblRepayment:"திருப்பிச் செலுத்தும் வரலாறு",
+
+    btnPredict:"அபாயம் கணிக்கவும்",
+
+    cardTitle:"விவசாயி நலன் & ஆதரவு அட்டைகள் (விருப்பம்)",
+    lblKisan:"கிசான் கிரெடிட் கார்டு",
+    lblRupay:"ரூபே கிசான் கார்டு",
+    lblSoil:"மண் ஆரோக்கிய அட்டை",
+    lblInsurance:"பயிர் காப்பீட்டு அட்டை",
+
+    esgTitle:"ESG மற்றும் சமூக தாக்கம் (விருப்பம்)",
+    lblWomen:"பெண்கள் நடத்தும் FPO / நிறுவனம்",
+    lblOrganic:"இயற்கை விவசாயம்",
+    lblSmall:"சிறு விவசாயி வகை"
+  }
+};
+
+function applyFormLanguage(lang){
+  const t = formTranslations[lang] || formTranslations.en;
+  Object.keys(t).forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.innerText = t[id];
+  });
+}
+
+setTimeout(() => {
+  const lang = localStorage.getItem("selectedLang") || "en";
+  applyFormLanguage(lang);
+
+  // Make sure button text updates
+  document.getElementById("btnPredict").innerText =
+    (formTranslations[lang] || formTranslations.en).btnPredict;
+
+}, 120);
+</script>

@@ -1,0 +1,115 @@
+:root{
+  --bg: #f4f7fb;
+  --card: rgba(255,255,255,0.72);
+  --text: #0f172a;
+  --muted: rgba(15,23,42,0.70);
+
+  --green1:#2ee59d;
+  --green2:#1f7a3a;
+
+  --accent:#00b4ff;
+
+  --border: rgba(0,0,0,0.10);
+  --shadow: 0 18px 70px rgba(0,0,0,0.12);
+
+  --radius: 22px;
+}
+
+body.dark{
+  --bg: #0b1016;
+  --card: rgba(0,0,0,0.30);
+  --text: #e9eef7;
+  --muted: rgba(233,238,247,0.70);
+
+  --border: rgba(255,255,255,0.10);
+  --shadow: 0 22px 85px rgba(0,0,0,0.50);
+}
+
+body{
+  margin:0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(46,229,157,0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(0,180,255,0.12), transparent 55%),
+    linear-gradient(135deg, var(--bg), var(--bg));
+  color: var(--text);
+  transition: 0.25s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{ width: 10px; }
+::-webkit-scrollbar-thumb{
+  background: rgba(46,229,157,0.35);
+  border-radius: 999px;
+}
+body.dark ::-webkit-scrollbar-thumb{
+  background: rgba(0,180,255,0.25);
+}
+
+/* Global card */
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+}
+
+/* Global buttons */
+.btn{
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: none;
+  cursor:pointer;
+  font-weight: 1050;
+  font-size: 15px;
+  transition: 0.22s ease;
+  color: #06130c;
+  background: linear-gradient(90deg, var(--green1), var(--accent), var(--green2));
+  box-shadow: 0 18px 70px rgba(46,229,157,0.16);
+}
+.btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 24px 90px rgba(0,180,255,0.18);
+}
+.btn:active{
+  transform: translateY(0px) scale(0.99);
+}
+
+/* Neon Inputs */
+.input, select{
+  width:100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(46,229,157,0.22);
+  background: rgba(255,255,255,0.75);
+  font-weight: 900;
+  transition: 0.22s ease;
+  outline: none;
+}
+body.dark .input,
+body.dark select{
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(0,180,255,0.22);
+  color: var(--text);
+}
+
+.input:focus, select:focus{
+  border: 1px solid rgba(46,229,157,0.50);
+  box-shadow: 0 0 0 5px rgba(46,229,157,0.16);
+}
+
+label{
+  font-weight: 1000;
+  margin-bottom: 6px;
+  display:block;
+}
+
+.hr{
+  border:none;
+  border-top: 1px solid rgba(0,0,0,0.10);
+  margin: 18px 0;
+}
+body.dark .hr{
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
